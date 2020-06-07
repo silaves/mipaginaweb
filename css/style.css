@@ -1,6 +1,10 @@
 *{
 	margin:0px;
 }
+body, html{
+	margin:0;
+    padding:0;
+}
 @font-face{
 	font-family: Brush;
 	src:url('../fonts/Good_Brush/Good Brush.woff');
@@ -17,7 +21,7 @@
 	font-family: james;
 	src:url('../fonts/james/James Stroker.ttf');
 }
-@font-face{
+/*@font-face{
 	font-family: krisha;
 	src:url('../fonts/KrishaFont/Krisha-Regular.otf');
 }
@@ -32,7 +36,7 @@
 @font-face{
 	font-family: throne;
 	src:url('../fonts/throne/THRONE.otf');
-}
+}*/
 .header-top{
 	display: block;
 	background: rgb(2,119,189);
@@ -103,6 +107,7 @@
 	background:url('../images/mobile2.svg') no-repeat;
 	background-size: 20%;
 	width: 100%;
+	max-height:fill-content;
 	height: 520px;
 	top:180px;
 	left: 40%;
@@ -116,12 +121,38 @@
 }
 
 /* tests */
+@media (max-width: 768px) {
+	.main-mobile{
+		display: block;
+		position: absolute;
+		background:url('../images/mobile2.svg') no-repeat;
+		background-size: 40%;
+		width: 100%;
+		max-height:fill-content;
+		height: 520px;
+		top:180px;
+		left: 30%;
+	}
+}
+@media (max-width: 570px){
+	.sbt1{
+		font-size: 70px;
+	}
+	.main-mobile{
+		top: 200px;
+	}
+}
+@media (max-width: 400px){
+	.sbt1{
+		font-size: 60px;
+	}
+}
 .d1,.d2,.d3,.d4,.d5,.d6,.d7,.d8{
 	font-size: 80px;
 	color:#01579b;
 	margin:50px;
 }
-.d1{
+/*.d1{
 	font-family: Brush;
 }
 .d2{
@@ -146,3 +177,4 @@
 	font-family: throne;
 }
 
+*/
