@@ -1,42 +1,146 @@
-<!DOCTYPE html>
+<!DOCTYPE html5>
 <html>
-<head>
-	<title>Portafolio 2</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-<body>
-	<header>
-		<section class="header-top">
-			
-			<div class="sub-header">
-				<div class="sub-header-left">empresa</div>
-				<div class="sub-header-right">
-					<a href="">a</a>
-					<a href="">d</a>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-			<div class="sub-header-titulo">
-				<div class="sbt1">MOBILE APP</div>
-				<div class="sbt2">Odin</div>
-				<div class="sbt3">una app hecha para ti</div>
-			</div>
+    <style>
+    	body{
+      	width:100vw;
+      }
+    </style>
+    
+  </head>
+  <body>
+    	<p>
+    		<label>Precio minimo</label>
+    		<input id="minimo" type="number"/>
+    	</p>
+    <button id="agregar">agregar tarifa</button>
+    <br><br>
+    <div id="container">
+      	<label>km/inicial</label>
+      	<input name="km" class="tarifa1" type="number" step="0.001"/>
+        <label>precio/km</label>
+        <input name="precio" class="tarifa1" type="number" step="0.001"/>
+    </div>
+    <button id="calcular">calcular</button>
+    <table id="tarifas" border>
+      <tr>
+        <th>km</th>
+        <th>precio en Bs</th>
+      </tr>
+      
+    </table>
+    <script>
+        var _ids = 2;
+        // var _ids2 = 100;
+        var agregar = document.getElementById('agregar');
+        agregar.addEventListener('click', function(e){
+          var br = document.createElement('br');
+          var hr = document.createElement('hr');
+          var lab = document.createElement('label');
+          var inp = document.createElement('input');
+          var lab2 = document.createElement('label');
+          var inp2 = document.createElement('input');
+          
+          lab.textContent = 'km/inicial';
+          inp.setAttribute('class','tarifa'+_ids.toString());
+          inp.setAttribute('name','km');
+          inp.setAttribute('type','number');
+          inp.setAttribute('step','0.001');
+          lab2.textContent = 'precio/km';
+          inp2.setAttribute('name','precio');
+          inp2.setAttribute('type','number');
+          inp2.setAttribute('step','0.001');
+          inp2.setAttribute('class','tarifa'+_ids.toString());
+          container = document.getElementById('container');
+          container.appendChild(br);
+          container.appendChild(hr);
+          container.appendChild(lab);
+          container.appendChild(inp);
+          container.appendChild(lab2);
+          container.appendChild(inp2);
+          _ids++;
 
-		</section>
-		<div class="main-mobile"></div>
-		<section class="header-bottom">
-			
-		</section>
-	</header>
-<!-- 	<div class="d1">Mobile APP</div>
-	<div class="d2">Mobile APP</div>
-	<div class="d3">Mobile APP</div>
-	<div class="d4">Mobile APP</div>
-	<div class="d5">Mobile APP</div>
-	<div class="d6">Mobile APP</div>
-	<div class="d7">Mobile APP</div>
-	<div class="d8">MOBILE APP</div> -->
-</body>
+      },false);
+
+
+      var calcular = document.getElementById('calcular');
+        calcular.addEventListener('click', function(e){
+          const elements = document.getElementsByClassName("registro");
+          while (elements.length > 0) elements[0].remove();
+          var data = get_data();
+          var _km = []
+          var _precio = []
+          var i = -1;
+          for(let [key,value] of data.entries()){
+            _km.push(key);
+            _precio.push(value);
+            i = i+1;
+          }
+          // console.log(result);
+          for(var m=0.0;m<15;m=m+0.2){
+            i = data.size-1;
+            kmt = m;
+            result = parseFloat(document.getElementById('minimo').value);
+            while( i >= 0 ){
+              if( kmt >= _km[i]){
+                result += (kmt - _km[i]) *_precio[i];
+                kmt -= kmt-_km[i];
+              }
+              i--;
+            }
+            var tabla = document.getElementById('tarifas');
+            // console.log(m.toFixed(2)+' km   -   '+result.toFixed(2)+' Bs');
+            var tr = document.createElement('tr');
+            var th1 = document.createElement('th');
+            var th2 = document.createElement('th');
+            var text1 = document.createTextNode(m.toFixed(2).toString());
+            var text2 = document.createTextNode(result.toFixed(2).toString());
+            th1.appendChild(text1);
+            th2.appendChild(text2);
+            tr.appendChild(th1);
+            tr.appendChild(th2);
+            tabla.appendChild(tr);
+            tr.setAttribute('class','registro');
+          }
+          // while( i >=0 ){
+          //   console.log(data.get(i));
+          //   i--;
+          // }
+          // var tr = document.createElement('tr');
+          // var th = document.createElement('th');
+          // var th2 = document.createElement('th');
+          
+      
+      },false);
+      
+      function get_data(){
+        var data = new Map();
+        var i = 1;
+        while(i<50){
+          var tarifa = document.getElementsByClassName('tarifa'+i.toString());
+          for (var t=0; t<tarifa.length;t+=2){
+            // console.log(tarifa[t].value);
+            data.set(parseFloat(tarifa[0].value), parseFloat(tarifa[1].value));
+          }
+          i++;
+        }
+        sorted = [];
+        for(var x of data){
+          sorted.push(x[0]);
+        }
+        sorted.sort(function(a,b){return a-b;});
+        var new_data = new Map();
+        for(var f of sorted){
+          if (!isNaN(f))
+            new_data.set(f,data.get(f));
+        }
+        // console.log(new_data);
+        return new_data;
+      }
+
+    </script>
+  </body>
 </html>
