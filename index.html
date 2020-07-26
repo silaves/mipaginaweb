@@ -80,14 +80,20 @@
             i = i+1;
           }
           // console.log(result);
-          for(var m=0.0;m<15;m=m+0.2){
+          var m=0.0;
+          var pepa = 0;
+          // for(var m=0.0;m<15;m=m+0.2){
+          while(m<25){
             i = data.size-1;
-            kmt = m;
+            var kmt = m;
+            // console.log(kmt+'  -  '+m.toFixed(2));
+            kmt = parseInt(m);
             result = parseFloat(document.getElementById('minimo').value);
             while( i >= 0 ){
               if( kmt >= _km[i]){
-                result += (kmt - _km[i]) *_precio[i];
-                kmt -= kmt-_km[i];
+                var bb = _km[i] - 1;
+                result += (kmt - bb) *_precio[i];
+                kmt = bb;
               }
               i--;
             }
@@ -97,13 +103,15 @@
             var th1 = document.createElement('th');
             var th2 = document.createElement('th');
             var text1 = document.createTextNode(m.toFixed(2).toString());
-            var text2 = document.createTextNode(result.toFixed(2).toString());
+            var text2 = document.createTextNode(parseInt(result).toFixed(2).toString());
             th1.appendChild(text1);
             th2.appendChild(text2);
             tr.appendChild(th1);
             tr.appendChild(th2);
             tabla.appendChild(tr);
             tr.setAttribute('class','registro');
+            pepa = pepa + 1;
+            m = 0.2*pepa;
           }
           // while( i >=0 ){
           //   console.log(data.get(i));
